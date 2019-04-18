@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 
 app.get('/test/:email', (req, res) => {
     testJson.email = req.params.email;  // cf. req.body, req.query
+    testJson.qs = req.query.qs;
     res.json(testJson);
 });
 
