@@ -1,0 +1,19 @@
+{
+  "name": "190418-node-vue-mysql",
+  "version": "1.0.0",
+  "description": "sample project node vue mysql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/behong/190418-node-vue-mysql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/behong/190418-node-vue-mysql/issues"
+  },
+  "homepage": "https://github.com/behong/190418-node-vue-mysql#readme"
+}
