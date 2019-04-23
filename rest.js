@@ -9,6 +9,16 @@ module.exports = function(app,pool){
         res.render('index', {name: '홍길동'});
     });
     //survey
+    app.post('/apis/adminkey', (req, res) => {
+        let key = req.body.key;
+        if( key === '1212' || key === 'surveykey!!!'){
+            res.status(200).json();
+        }else{
+            res.status(403).json();
+        }
+    });
+
+
     app.get('/apis/surveys', (req, res) => {
         let mydb = new Mydb(pool);
         mydb.execute( conn =>{

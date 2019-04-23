@@ -6,7 +6,7 @@ import axios from 'axios'
 import lodash from 'lodash'
 
 import Global from './components/_global'
-import {utils } from '@/mixins/utils'
+import { utils } from '@/mixins/utils'
 
 Vue.config.productionTip = false
 
@@ -14,7 +14,14 @@ Vue.prototype.$http = axios
 Vue.prototype.ApiURL = "http://localhost:7000/apis/"
 Vue.prototype._ = lodash
 
+Vue.mixin(utils)
+
 const EventBus = new Vue({
+  data(){
+    return{
+      isAdmin : false
+    }
+  },
   methods:{
   }
 })
