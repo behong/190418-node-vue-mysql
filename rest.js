@@ -8,7 +8,59 @@ module.exports = function(app,pool){
         // view ejs 
         res.render('index', {name: '홍길동'});
     });
-    
+    //survey
+    app.get('/apis/surveys', (req, res) => {
+        let mydb = new Mydb(pool);
+        mydb.execute( conn =>{
+            conn.query("select * from Survey limit 1000", (err,ret) =>{
+                res.json(ret);
+            });
+        });            
+    });
+
+    app.get('/apis/surveys/:id', (req, res) => {
+        let id = req.params.id;
+        let mydb = new Mydb(pool);
+        mydb.execute( conn =>{
+            conn.query("select * from Survey where id = ?",[id] ,(err,ret) =>{
+                if(err) throw err;
+                res.json(ret[0]);
+            });
+        });            
+    });
+
+    app.put('/apis/surveys/:id', (req, res) => {
+        let id = req.params.id,
+            title = req.body.title,
+            state = req.body.state;
+        let mydb = new Mydb(pool);
+        mydb.executeTx( conn =>{
+            conn.query("update Survey set title=? ,state=? where id = ?",[title,state,id] ,(err,ret) =>{
+                if( err){
+                    conn.rollback();
+                    throw err;
+                }
+                res.json(ret.affectedRows);
+                conn.commit();
+            });
+        });            
+    });
+
+    app.post('/apis/surveys', (req, res) => {
+        let title = req.body.title
+        let mydb = new Mydb(pool);
+        mydb.executeTx( conn =>{
+            conn.query("insert into Survey(title,state) values(?,0)",[title] ,(err,ret) =>{
+                if( err){
+                    conn.rollback();
+                    throw err;
+                }
+                res.json(ret.affectedRows);
+                conn.commit();
+            });
+        });            
+    });   
+
     app.get('/test/:email', (req, res) => {
         testJson.email = req.params.email;  // cf. req.body, req.query
         testJson.qs = req.query.qs;
